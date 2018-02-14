@@ -27,7 +27,7 @@ class CreateGameController: CreateGameLogic {
     /// Returns a handler which will create a game
     public static func handler(request: HTTPRequest, response: HTTPResponse) {
         let controller = CreateGameController(request: request, response: response)
-        controller.createGame(size: 40)
+        controller.createGame(size: 60)
     }
     
     public func createGame(size: Int) {
@@ -82,7 +82,6 @@ class CreateGameController: CreateGameLogic {
     private func step(grid: inout LifeGrid, currentState: LifeGrid) -> LifeGrid{
         for (rowIndex, row) in grid.rows.enumerated() {
             for (cellIndex, cell) in row.cells.enumerated() {
-//                let neighbors = currentState.numberOfNeighbors(row: cell.x, col: cell.y) // Better algo NOT working
                 let neighbors = currentState.numberOfNeighbors(x: cell.x, y: cell.y)
                 if cell.isAlive {
                     if neighbors <= 1 {

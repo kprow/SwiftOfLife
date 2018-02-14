@@ -41,87 +41,65 @@ struct LifeGrid:Codable {
         }
         return "<div class='game'>\(rowsString)</div>"
     }
-    // NOT WORKING
-    func numberOfNeighbors(row: Int, col: Int) -> Int {
-        var sum = 0
-        var rowIndex = row - 1
-        var colIndex = col - 1
-        
-        
-        
-        for x in -1...1 {
-            for y in -1...1 {
-                let i = rowIndex + y
-                let j = colIndex + x
-                if i >= 0 && i < rows.count && j >= 0 && j < rows[i].cells.count && !(y == 0 && x == 0) {
-                    if rows[i].cells[j].isAlive {
-                        sum += 1
-                    }
-                }
-            }
-        }
-        return sum
-    }
     func numberOfNeighbors(x: Int, y: Int) -> Int {
-        var topLeft = 0
-        var top = 0
-        var topRight = 0
-        var left = 0
-        var right = 0
-        var bottomLeft = 0
-        var bottom = 0
-        var bottomRight = 0
+        var sum = 0
+        
+        let rowIndex = y - 1
+        let colIndex = x - 1
+        
+        let rightIndex = colIndex + 1
+        let leftIndex = colIndex - 1
+        let topIndex = rowIndex - 1
+        let bottomIndex = rowIndex + 1
         
         // Right
-        for row in rows where row.rowNumber == y {
-            for cell in row.cells where cell.x == x + 1 && cell.isAlive {
-                right = 1
+        if rowIndex >= 0 && rowIndex < rows.count && rightIndex >= 0 && rightIndex < rows[rowIndex].cells.count {
+            if rows[rowIndex].cells[rightIndex].isAlive {
+                sum += 1
             }
         }
         // Bottom
-        for row in rows where row.rowNumber == y + 1{
-            for cell in row.cells where cell.x == x && cell.isAlive {
-                bottom = 1
+        if bottomIndex >= 0 && bottomIndex < rows.count && colIndex >= 0 && colIndex < rows[bottomIndex].cells.count {
+            if rows[bottomIndex].cells[colIndex].isAlive {
+                sum += 1
             }
         }
         // Bottom Right
-        for row in rows where row.rowNumber == y + 1{
-            for cell in row.cells where cell.x == x + 1 && cell.isAlive {
-                bottomRight = 1
+        if bottomIndex >= 0 && bottomIndex < rows.count && rightIndex >= 0 && rightIndex < rows[bottomIndex].cells.count {
+            if rows[bottomIndex].cells[rightIndex].isAlive {
+                sum += 1
             }
         }
         // Bottom Left
-        for row in rows where row.rowNumber == y + 1{
-            for cell in row.cells where cell.x == x - 1 && cell.isAlive {
-                bottomLeft = 1
+        if bottomIndex >= 0 && bottomIndex < rows.count && leftIndex >= 0 && leftIndex < rows[bottomIndex].cells.count {
+            if rows[bottomIndex].cells[leftIndex].isAlive {
+                sum += 1
             }
         }
         // Left
-        for row in rows where row.rowNumber == y {
-            for cell in row.cells where cell.x == x - 1 && cell.isAlive {
-                left = 1
+        if rowIndex >= 0 && rowIndex < rows.count && leftIndex >= 0 && leftIndex < rows[rowIndex].cells.count {
+            if rows[rowIndex].cells[leftIndex].isAlive {
+                sum += 1
             }
         }
         // Top
-        for row in rows where row.rowNumber == y - 1 {
-            for cell in row.cells where cell.x == x && cell.isAlive {
-                top = 1
+        if topIndex >= 0 && topIndex < rows.count && colIndex >= 0 && colIndex < rows[topIndex].cells.count {
+            if rows[topIndex].cells[colIndex].isAlive {
+                sum += 1
             }
         }
         // Top Left
-        for row in rows where row.rowNumber == y - 1 {
-            for cell in row.cells where cell.x == x - 1 && cell.isAlive {
-                topLeft = 1
+        if topIndex >= 0 && topIndex < rows.count && leftIndex >= 0 && leftIndex < rows[topIndex].cells.count {
+            if rows[topIndex].cells[leftIndex].isAlive {
+                sum += 1
             }
         }
         // Top Right
-        for row in rows where row.rowNumber == y - 1 {
-            for cell in row.cells where cell.x == x + 1 && cell.isAlive {
-                topRight = 1
+        if topIndex >= 0 && topIndex < rows.count && rightIndex >= 0 && rightIndex < rows[topIndex].cells.count {
+            if rows[topIndex].cells[rightIndex].isAlive {
+                sum += 1
             }
         }
-        
-        // Sum
-        return topLeft + top + topRight + left + right + bottomLeft + bottom + bottomRight
+        return sum
     }
 }
