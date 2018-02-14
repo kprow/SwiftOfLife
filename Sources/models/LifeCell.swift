@@ -43,63 +43,117 @@ struct LifeGrid:Codable {
     }
     func numberOfNeighbors(x: Int, y: Int) -> Int {
         var sum = 0
-        
-        let rowIndex = y - 1
-        let colIndex = x - 1
-        
-        let rightIndex = colIndex + 1
-        let leftIndex = colIndex - 1
-        let topIndex = rowIndex - 1
-        let bottomIndex = rowIndex + 1
+        let counter = NeigbhorCounter(grid: self, focusX: x, focusY: y)
         
         // Right
-        if rowIndex >= 0 && rowIndex < rows.count && rightIndex >= 0 && rightIndex < rows[rowIndex].cells.count {
-            if rows[rowIndex].cells[rightIndex].isAlive {
-                sum += 1
-            }
+        if let right = counter.getRight(), right.isAlive {
+            sum += 1
         }
         // Bottom
-        if bottomIndex >= 0 && bottomIndex < rows.count && colIndex >= 0 && colIndex < rows[bottomIndex].cells.count {
-            if rows[bottomIndex].cells[colIndex].isAlive {
-                sum += 1
-            }
+        if let bottom = counter.getBottom(), bottom.isAlive {
+            sum += 1
         }
         // Bottom Right
-        if bottomIndex >= 0 && bottomIndex < rows.count && rightIndex >= 0 && rightIndex < rows[bottomIndex].cells.count {
-            if rows[bottomIndex].cells[rightIndex].isAlive {
-                sum += 1
-            }
+        if let bottomRight = counter.getBottomRight(), bottomRight.isAlive {
+            sum += 1
         }
         // Bottom Left
-        if bottomIndex >= 0 && bottomIndex < rows.count && leftIndex >= 0 && leftIndex < rows[bottomIndex].cells.count {
-            if rows[bottomIndex].cells[leftIndex].isAlive {
-                sum += 1
-            }
+        if let bottomLeft = counter.getBottomLeft(), bottomLeft.isAlive {
+            sum += 1
         }
         // Left
-        if rowIndex >= 0 && rowIndex < rows.count && leftIndex >= 0 && leftIndex < rows[rowIndex].cells.count {
-            if rows[rowIndex].cells[leftIndex].isAlive {
-                sum += 1
-            }
+        if let left = counter.getLeft(), left.isAlive {
+            sum += 1
         }
         // Top
-        if topIndex >= 0 && topIndex < rows.count && colIndex >= 0 && colIndex < rows[topIndex].cells.count {
-            if rows[topIndex].cells[colIndex].isAlive {
-                sum += 1
-            }
+        if let top = counter.getTop(), top.isAlive {
+            sum += 1
         }
         // Top Left
-        if topIndex >= 0 && topIndex < rows.count && leftIndex >= 0 && leftIndex < rows[topIndex].cells.count {
-            if rows[topIndex].cells[leftIndex].isAlive {
-                sum += 1
-            }
+        if let topLeft = counter.getTopLeft(), topLeft.isAlive {
+            sum += 1
         }
         // Top Right
-        if topIndex >= 0 && topIndex < rows.count && rightIndex >= 0 && rightIndex < rows[topIndex].cells.count {
-            if rows[topIndex].cells[rightIndex].isAlive {
-                sum += 1
-            }
+        if let topRight = counter.getTopRight(), topRight.isAlive {
+            sum += 1
         }
         return sum
+    }
+}
+struct NeigbhorCounter {
+    let grid: LifeGrid
+    let focusX: Int
+    let focusY: Int
+    
+    var rows: [LifeRow] {
+        return grid.rows
+    }
+    
+    var rowIndex:Int {
+        return focusY - 1
+    }
+    var colIndex:Int {
+        return focusX - 1
+    }
+    
+    var rightIndex: Int {
+        return colIndex + 1
+    }
+    var leftIndex : Int {
+        return  colIndex - 1
+    }
+    var topIndex : Int {
+        return  rowIndex - 1
+    }
+    var bottomIndex : Int {
+        return  rowIndex + 1
+    }
+    func getRight() -> LifeCell? {
+        if rowIndex >= 0 && rowIndex < rows.count && rightIndex >= 0 && rightIndex < rows[rowIndex].cells.count {
+            return rows[rowIndex].cells[rightIndex]
+        }
+        return nil
+    }
+    func getBottom() -> LifeCell? {
+        if bottomIndex >= 0 && bottomIndex < rows.count && colIndex >= 0 && colIndex < rows[bottomIndex].cells.count {
+            return rows[bottomIndex].cells[colIndex]
+        }
+        return nil
+    }
+    func getBottomRight() -> LifeCell? {
+        if bottomIndex >= 0 && bottomIndex < rows.count && rightIndex >= 0 && rightIndex < rows[bottomIndex].cells.count {
+            return rows[bottomIndex].cells[rightIndex]
+        }
+        return nil
+    }
+    func getBottomLeft() -> LifeCell? {
+        if bottomIndex >= 0 && bottomIndex < rows.count && leftIndex >= 0 && leftIndex < rows[bottomIndex].cells.count {
+            return rows[bottomIndex].cells[leftIndex]
+        }
+        return nil
+    }
+    func getLeft() -> LifeCell? {
+        if rowIndex >= 0 && rowIndex < rows.count && leftIndex >= 0 && leftIndex < rows[rowIndex].cells.count {
+            return rows[rowIndex].cells[leftIndex]
+        }
+        return nil
+    }
+    func getTop() -> LifeCell? {
+        if topIndex >= 0 && topIndex < rows.count && colIndex >= 0 && colIndex < rows[topIndex].cells.count {
+            return rows[topIndex].cells[colIndex]
+        }
+        return nil
+    }
+    func getTopLeft() -> LifeCell? {
+        if topIndex >= 0 && topIndex < rows.count && leftIndex >= 0 && leftIndex < rows[topIndex].cells.count {
+            return rows[topIndex].cells[leftIndex]
+        }
+        return nil
+    }
+    func getTopRight() -> LifeCell? {
+        if topIndex >= 0 && topIndex < rows.count && rightIndex >= 0 && rightIndex < rows[topIndex].cells.count {
+            return rows[topIndex].cells[rightIndex]
+        }
+        return nil
     }
 }
