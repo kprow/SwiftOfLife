@@ -59,8 +59,6 @@ class CreateGameController: CreateGameLogic {
     public static func stepHandler(request: HTTPRequest, response: HTTPResponse) {
         let controller = CreateGameController(request: request, response: response)
         controller.step(json: request.postBodyString ?? "")
-        
-        
     }
     public func step(json: String){
         let decoder = JSONDecoder()
@@ -82,6 +80,7 @@ class CreateGameController: CreateGameLogic {
     private func step(grid: inout LifeGrid, currentState: LifeGrid) -> LifeGrid{
         for (rowIndex, row) in grid.rows.enumerated() {
             for (cellIndex, cell) in row.cells.enumerated() {
+                
                 let neighbors = currentState.numberOfNeighbors(x: cell.x, y: cell.y)
                 if cell.isAlive {
                     if neighbors <= 1 {
