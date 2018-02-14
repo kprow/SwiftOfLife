@@ -132,14 +132,19 @@ header h1 {
     </header>
 
     <button id="step" onclick='step()'>Step</button>
-    <div id='myGame'></div>
+    <button id="clear" onclick='location.reload()'>Clear</button><br/>
+    <button id="slower" onclick='slower()'>Slower</button>
+    <button id="pausePlay" onclick='pausePlay()'>Play</button>
+    <button id="faster" onclick='faster()'>Faster</button>
+    <div id='myGame' onmousedown='window.gameState.isDragging = true' onmouseup='window.gameState.isDragging = false'></div>
 <script>
 // self executing function here
 (function() {
-var gridState = null;
-var gameState = {
+window.gameState = {
     'gameInterval': 500,
-    'isPlaying': false
+    'isPlaying': false,
+    'intervalPointer': null,
+    'isDragging': false
 }
 // your page initialization code here
 // the DOM will be available here
@@ -170,7 +175,6 @@ function cellClick(id) {
         cell.innerHTML = ''
     }
     window.gridState.rows[y-1].cells[x-1].isAlive = !window.gridState.rows[y-1].cells[x-1].isAlive
-    console.log( window.gridState )
 }
 function step(){
     var stepXHR =  new XMLHttpRequest();
@@ -184,6 +188,36 @@ function step(){
     };
     stepXHR.setRequestHeader("Content-Type", "application/json");
     stepXHR.send(JSON.stringify(window.gridState))
+}
+function pausePlay(){
+    // Pause
+    if( window.gameState.isPlaying ){
+        document.getElementById('pausePlay').innerHTML = 'Play'
+        window.gameState.isPlaying = false
+        clearInterval(window.gameState.intervalPointer)
+    } else {
+    // Play
+        document.getElementById('pausePlay').innerHTML = 'Pause'
+        window.gameState.isPlaying = true
+        window.gameState.intervalPointer = setInterval(step, window.gameState.gameInterval)
+    }
+}
+function faster() {
+    if( window.gameState.gameInterval < 500 ){
+        return
+    }
+    window.gameState.gameInterval -= 250
+    if( window.gameState.isPlaying ){
+        clearInterval(window.gameState.intervalPointer)
+        window.gameState.intervalPointer = setInterval(step, window.gameState.gameInterval)
+    }
+}
+function slower() {
+    window.gameState.gameInterval += 250
+    if( window.gameState.isPlaying ){
+        clearInterval(window.gameState.intervalPointer)
+        window.gameState.intervalPointer = setInterval(step, window.gameState.gameInterval)
+    }
 }
 </script>
 </body>

@@ -14,7 +14,7 @@ struct LifeCell:Codable {
     
     func render() -> String {
         let aliveString = isAlive ? "<div></div>" : ""
-        return "<div id='cell_\(x)_\(y)' class='game-cell' onclick='cellClick(this.id)'>\(aliveString)</div>"
+        return "<div id='cell_\(x)_\(y)' class='game-cell' onclick='cellClick(this.id)' onmousemove='if(window.gameState.isDragging) cellClick(this.id)'>\(aliveString)</div>"
     }
 }
 struct LifeRow:Codable {

@@ -27,7 +27,7 @@ class CreateGameController: CreateGameLogic {
     /// Returns a handler which will create a game
     public static func handler(request: HTTPRequest, response: HTTPResponse) {
         let controller = CreateGameController(request: request, response: response)
-        controller.createGame(size: 10)
+        controller.createGame(size: 40)
     }
     
     public func createGame(size: Int) {
