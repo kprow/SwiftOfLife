@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C961D1B220335503007092A7 /* CreateGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C961D1B120335503007092A7 /* CreateGameController.swift */; };
+		C961D1B220335503007092A7 /* GameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C961D1B120335503007092A7 /* GameController.swift */; };
 		C961D1B520335B59007092A7 /* LifeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C961D1B420335B59007092A7 /* LifeCell.swift */; };
 		OBJ_368 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_374 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* Package.swift */; };
@@ -560,7 +560,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C961D1B120335503007092A7 /* CreateGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateGameController.swift; path = scene/CreateGameController.swift; sourceTree = "<group>"; };
+		C961D1B120335503007092A7 /* GameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = GameController.swift; path = scene/GameController.swift; sourceTree = "<group>"; };
 		C961D1B420335B59007092A7 /* LifeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LifeCell.swift; path = models/LifeCell.swift; sourceTree = "<group>"; };
 		"COpenSSL::COpenSSL::Product" /* COpenSSL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = COpenSSL.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_100 /* ameth_lib.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ameth_lib.c; sourceTree = "<group>"; };
@@ -1003,7 +1003,7 @@
 		C961D1B020333F65007092A7 /* scene */ = {
 			isa = PBXGroup;
 			children = (
-				C961D1B120335503007092A7 /* CreateGameController.swift */,
+				C961D1B120335503007092A7 /* GameController.swift */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -2009,7 +2009,7 @@
 			files = (
 				OBJ_422 /* main.swift in Sources */,
 				C961D1B520335B59007092A7 /* LifeCell.swift in Sources */,
-				C961D1B220335503007092A7 /* CreateGameController.swift in Sources */,
+				C961D1B220335503007092A7 /* GameController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

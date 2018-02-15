@@ -244,8 +244,8 @@ let confData = [
 			"port":8180,
 			"routes":[
                 ["method":"get", "uri":"/", "handler":handler],
-                ["method":"get", "uri":"/create", "handler":CreateGameController.handler],
-                ["method":"post", "uri":"/step", "handler":CreateGameController.stepHandler],
+                ["method":"get", "uri":"/create", "handler":GameController.handler],
+                ["method":"post", "uri":"/step", "handler":GameController.stepHandler],
 				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
 				 "documentRoot":"./webroot",
 				 "allowResponseFilters":true]

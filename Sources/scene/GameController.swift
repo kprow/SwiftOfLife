@@ -8,10 +8,10 @@
 import Foundation
 import PerfectHTTP
 
-protocol CreateGameLogic: class {
+protocol GameLogic: class {
 }
 
-class CreateGameController: CreateGameLogic {
+class GameController: GameLogic {
 
     // MARK: Object lifecycle
     var request: HTTPRequest
@@ -26,7 +26,7 @@ class CreateGameController: CreateGameLogic {
     
     /// Returns a handler which will create a game
     public static func handler(request: HTTPRequest, response: HTTPResponse) {
-        let controller = CreateGameController(request: request, response: response)
+        let controller = GameController(request: request, response: response)
         controller.createGame(size: 60)
     }
     
@@ -42,22 +42,12 @@ class CreateGameController: CreateGameLogic {
             rows.append(row)
         }
         let game = LifeGrid(size: size, rows: rows)
-        
-        // html
-        let gameHTML = game.render()
-        // json
-        let encoder = JSONEncoder()
-        let data = try! encoder.encode(game)
-        let gameJSON = String(data:data, encoding: .utf8) ?? "no game"
-        
-        let resultJSON = "{\"htmlResult\": \"\(gameHTML)\",\"jsonResult\": \(gameJSON)}"
-        response.appendBody(string: resultJSON)
-        response.completed()
+        render(grid: game)
     }
     
     /// Returns a handler which will create a game
     public static func stepHandler(request: HTTPRequest, response: HTTPResponse) {
-        let controller = CreateGameController(request: request, response: response)
+        let controller = GameController(request: request, response: response)
         controller.step(json: request.postBodyString ?? "")
     }
     public func step(json: String){
@@ -66,16 +56,7 @@ class CreateGameController: CreateGameLogic {
         var grid = try! decoder.decode(LifeGrid.self, from: data!)
         
         let newGrid = step(grid: &grid, currentState: grid)
-        // html
-        let gameHTML = newGrid.render()
-        // json
-        let encoder = JSONEncoder()
-        let newData = try! encoder.encode(newGrid)
-        let gameJSON = String(data:newData, encoding: .utf8) ?? "no game"
-        
-        let resultJSON = "{\"htmlResult\": \"\(gameHTML)\",\"jsonResult\": \(gameJSON)}"
-        response.appendBody(string: resultJSON)
-        response.completed()
+        render(grid: newGrid)
     }
     private func step(grid: inout LifeGrid, currentState: LifeGrid) -> LifeGrid{
         for (rowIndex, row) in grid.rows.enumerated() {
@@ -99,5 +80,18 @@ class CreateGameController: CreateGameLogic {
             }
         }
         return grid
+    }
+    private func render(grid: LifeGrid) {
+    
+        // html
+        let gameHTML = grid.render()
+        // json
+        let encoder = JSONEncoder()
+        let newData = try! encoder.encode(grid)
+        let gameJSON = String(data:newData, encoding: .utf8) ?? "no game"
+        
+        let resultJSON = "{\"htmlResult\": \"\(gameHTML)\",\"jsonResult\": \(gameJSON)}"
+        response.appendBody(string: resultJSON)
+        response.completed()
     }
 }
