@@ -8,7 +8,7 @@ tags: project, swift, server side
 John Conway, a british mathematician, invented a not so typical game in 1970 that is still in heavy use today. He invented the [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). Some say it is the most often programmed computer game in existence. In practice, it is a simple set of rules acting on an initial state to determine it's next state.
 
 
-<img class="left" alt="Glider Gun in Conway's Game of Life" src="/images/swift-of-life/glider_gun.gif" />
+<img class="left" alt="Glider Gun in Conway's Game of Life" src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Gospers_glider_gun.gif" />
 
 It is a [cellular automaton](https://en.wikipedia.org/wiki/Cellular_automaton) which is just a grid of `cells` that have a state of on or off, or in Conway's Game of Life they indicate dead or alive. In 1968 Conway began experimenting with a variety of different `rules` to govern 2D cellular automaton. He tried many possibilities that caused cells to die too fast, or rules that cause too many cells to be born. He had some challenging goals where an initial state could last a long time before dying, and also wanted other configurations to go on forever without allowing cycles. He also wanted the rules to be as simple as possible, that allowed no explosive growth, and unpredictable outcomes.
 
